@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>milimeterPage.jpg</file>
+        <file>circle.png</file>
+        <file>ellipse.png</file>
+        <file>rectangle.png</file>
+        <file>square.png</file>
+    </qresource>
+</RCC>

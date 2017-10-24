@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>LoginPopup.qml</file>
+        <file>PrimaryPage.qml</file>
     </qresource>
 </RCC>
