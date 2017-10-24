@@ -2,8 +2,10 @@ import QtQuick 2.9
 import QtQuick.Controls 2.2
 import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
+import QtQuick.Dialogs 1.2
 
-Item {
+Rectangle {
+    color:"White"
     Image {
         id:milimeterBackground
         anchors.fill: parent
@@ -14,43 +16,52 @@ Item {
     Canvas {
         id:canvas
         anchors.fill: parent
+        property var mainColor: colorDialog.color
         property bool setCircle    : false
         property bool setRectangle : false
         property bool setSquare    : false
         property bool setEllipse   : false
         function drawACircle(mouseX, mouseY) {
             var ctx = getContext("2d");
+            ctx.beginPath();
             var side = 100
-            ctx.fillStyle = Qt.rgba(1, 0, 0, 1);
+            ctx.fillStyle = mainColor
             ctx.ellipse(mouseX - side/2, mouseY - side/2, side, side);
             ctx.fill();
+            ctx.closePath();
             requestPaint();
             setCircle = false
         }
         function drawAnEllipse(mouseX, mouseY) {
             var ctx = getContext("2d");
+            ctx.beginPath();
             var side = 100
-            ctx.fillStyle = Qt.rgba(1, 0, 0, 1);
+            ctx.fillStyle = mainColor
             ctx.ellipse(mouseX - side/2, mouseY - side/2, side*0.8, side);
             ctx.fill();
+            ctx.closePath();
             requestPaint();
             setEllipse = false
         }
         function drawARect(mouseX, mouseY) {
             var ctx = getContext("2d");
+            ctx.beginPath();
             var side = 100
-            ctx.fillStyle = Qt.rgba(1, 0, 0, 1);
+            ctx.fillStyle = mainColor
             ctx.rect(mouseX - side/2, mouseY - side/2, side, side*0.6);
             ctx.fill();
+            ctx.closePath();
             requestPaint();
             setRectangle = false
         }
         function drawASquare(mouseX, mouseY) {
             var ctx = getContext("2d");
+            ctx.beginPath();
             var side = 100
-            ctx.fillStyle = Qt.rgba(1, 0, 0, 1);
+            ctx.fillStyle = mainColor
             ctx.rect(mouseX - side/2, mouseY - side/2, side, side);
             ctx.fill();
+            ctx.closePath();
             requestPaint();
             setSquare = false
         }
@@ -82,6 +93,7 @@ Item {
             anchors {fill: parent; margins: parent.width*0.3 }
             source: "http://cdn4.iconfinder.com/data/icons/mayssam/512/plus-128.png"
             fillMode: Image.PreserveAspectFit
+            mipmap: true
         }
         ColorOverlay {
             anchors.fill: roundButtonIcon
@@ -91,6 +103,29 @@ Item {
         onClicked: drawer.open()
 
         Component.onCompleted: background.color = Material.accent
+    }
+
+    RoundButton {
+        width:parent.width*0.15; height: width
+        anchors {
+            bottom: parent.bottom; left: parent.left
+            margins: parent.height*0.05
+        }
+        Image {
+            id:roundColorButtonIcon
+            anchors {fill: parent; margins: parent.width*0.3 }
+            source: "http://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-35-128.png"
+            fillMode: Image.PreserveAspectFit
+            mipmap: true
+        }
+        ColorOverlay {
+            anchors.fill: roundColorButtonIcon
+            source: roundColorButtonIcon
+            color: Qt.lighter(Material.foreground)
+        }
+        onClicked: colorDialog.open()
+
+        Component.onCompleted: background.color = "#09A"
     }
 
     Drawer {
@@ -227,5 +262,9 @@ Item {
                 }
             }
         }
+    }
+
+    ColorDialog {
+        id:colorDialog
     }
 }
