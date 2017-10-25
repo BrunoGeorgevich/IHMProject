@@ -4,8 +4,45 @@ import QtQuick.Controls.Material 2.2
 import QtGraphicalEffects 1.0
 import QtQuick.Dialogs 1.2
 
-Rectangle {
-    color:"White"
+Page {
+
+    header: ToolBar {
+        height: parent.height*0.07
+        width: parent.width
+
+        Row {
+            anchors {
+                fill:parent;
+                topMargin: parent.height*0.02; bottomMargin: parent.height*0.02;
+                leftMargin: parent.width*0.02; rightMargin: parent.width*0.02
+            }
+            spacing: parent.width*0.02
+            Image {
+                id: drawIOIcon
+                height: parent.height; width: height
+                fillMode: Image.PreserveAspectFit
+                verticalAlignment: Image.AlignVCenter
+                source: "qrc:/images/drawio.png"
+            }
+            Button {
+                id:openButton
+                height: parent.height
+                text:"Open"; flat:true
+                Component.onCompleted: openButton.contentItem.color = "White"
+            }
+            Button {
+                id:saveButton
+                height: parent.height
+                text:"Save"; flat:true
+                Component.onCompleted: saveButton.contentItem.color = "White"
+            }
+        }
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        color:"White"
+    }
     Image {
         id:milimeterBackground
         anchors.fill: parent
