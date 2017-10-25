@@ -250,6 +250,11 @@ Page {
                         sourceSize { height: parent.height*0.5; width: parent.width*0.5 }
                         fillMode: Image.PreserveAspectFit
                     }
+                    ColorOverlay {
+                        anchors.fill: buttonsGridIcon
+                        source: buttonsGridIcon
+                        color: colorDialog.color
+                    }
 
                     Label {
                         id:gridButtonLabel
