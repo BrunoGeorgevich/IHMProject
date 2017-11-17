@@ -6,7 +6,7 @@ import QtQuick.Dialogs 1.2
 
 Drawer {
     height: 0.66 * root.height; width: parent.width
-    edge: Qt.RightToLeft
+    edge: Qt.BottomEdge
     Column {
         anchors.fill: parent;
         spacing: height*0.05
