@@ -6,5 +6,8 @@
         <file>rectangle.png</file>
         <file>square.png</file>
         <file>drawio.png</file>
+        <file>chat.png</file>
+        <file>clock.png</file>
     </qresource>
+    <qresource prefix="/"/>
 </RCC>

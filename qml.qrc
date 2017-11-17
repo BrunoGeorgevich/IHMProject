@@ -4,5 +4,8 @@
         <file>qtquickcontrols2.conf</file>
         <file>LoginPopup.qml</file>
         <file>PrimaryPage.qml</file>
+        <file>ChatDrawer.qml</file>
+        <file>ItemDrawer.qml</file>
+        <file>RoundImageButton.qml</file>
     </qresource>
 </RCC>

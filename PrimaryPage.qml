@@ -37,6 +37,14 @@ Page {
                 Component.onCompleted: saveButton.contentItem.color = "White"
             }
         }
+        RoundImageButton {
+            height: parent.height; width: height
+            anchors.right: parent.right
+            color: "White"
+            sourcePath: "qrc:/images/chat.png"
+            overlayColor: Material.primary
+            onClicked: chatDrawer.open()
+        }
     }
 
     Rectangle {
@@ -119,192 +127,33 @@ Page {
         }
     }
 
-    RoundButton {
+    RoundImageButton {
+        color: Material.accent
+        sourcePath:  "http://cdn4.iconfinder.com/data/icons/mayssam/512/plus-128.png"
         width:parent.width*0.15; height: width
         anchors {
             bottom: parent.bottom; right: parent.right
             margins: parent.height*0.05
-        }
-        Image {
-            id:roundButtonIcon
-            anchors {fill: parent; margins: parent.width*0.3 }
-            source: "http://cdn4.iconfinder.com/data/icons/mayssam/512/plus-128.png"
-            fillMode: Image.PreserveAspectFit
-            mipmap: true
-        }
-        ColorOverlay {
-            anchors.fill: roundButtonIcon
-            source: roundButtonIcon
-            color: Qt.lighter(Material.foreground)
         }
         onClicked: drawer.open()
 
         Component.onCompleted: background.color = Material.accent
     }
 
-    RoundButton {
+    RoundImageButton {
+        color: "#09A"
+        sourcePath: "http://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-35-128.png"
         width:parent.width*0.15; height: width
         anchors {
             bottom: parent.bottom; left: parent.left
             margins: parent.height*0.05
         }
-        Image {
-            id:roundColorButtonIcon
-            anchors {fill: parent; margins: parent.width*0.3 }
-            source: "http://cdn3.iconfinder.com/data/icons/streamline-icon-set-free-pack/48/Streamline-35-128.png"
-            fillMode: Image.PreserveAspectFit
-            mipmap: true
-        }
-        ColorOverlay {
-            anchors.fill: roundColorButtonIcon
-            source: roundColorButtonIcon
-            color: Qt.lighter(Material.foreground)
-        }
         onClicked: colorDialog.open()
-
-        Component.onCompleted: background.color = "#09A"
     }
 
-    Drawer {
-        id: drawer
-        height: 0.66 * root.height; width: parent.width
-        edge: Qt.BottomEdge
-        Column {
-            anchors.fill: parent;
-            spacing: height*0.05
-            Item {
-                width:parent.width
-                height:parent.height*0.15
-                TextField {
-                    id:searchTextField
-                    anchors.centerIn: parent
-                    width: parent.width*0.9
-                    height: parent.height*0.5
-                    color: Material.foreground
-                    placeholderText: "Search ..."
-                    onTextEdited: {
-                        if(text == "")
-                            grid.model = list
-                        else {
-                            changedList.clear()
-                            for(var i = 0; i < list.count;i++)
-                            {
-                                if(list.get(i).name.toLowerCase().indexOf(text.toLowerCase()) !== -1) {
-                                    changedList.append(list.get(i));
-                                }
-                            }
+    ChatDrawer { id:chatDrawer }
 
-                            grid.model = changedList
-                        }
-                    }
-                }
-            }
-
-            GridView {
-                id:grid
-                property int rows: 3
-                property int cols: 3
-                property real spacingH: width*0.05
-                property real spacingV: height*0.05
-
-                width:parent.width
-                height:parent.height*0.8
-                anchors { left:parent.left; leftMargin: spacingH/2}
-
-                cellWidth: width/cols; cellHeight: height/rows;
-                ListModel {
-                    id:changedList
-                }
-                ListModel {
-                    id:list
-                    ListElement {
-                        name: "Circle"
-                        icon: "qrc:/images/circle.png"
-                    }
-                    ListElement {
-                        name: "Rectangle"
-                        icon: "qrc:/images/rectangle.png"
-                    }
-                    ListElement {
-                        name: "Square"
-                        icon: "qrc:/images/square.png"
-                    }
-                    ListElement {
-                        name: "Ellipse"
-                        icon: "qrc:/images/ellipse.png"
-                    }
-                }
-                model: list
-                delegate: Rectangle {
-                    id:gridButton
-                    width: grid.cellWidth - grid.spacingH
-                    height:grid.cellHeight - grid.spacingV
-                    color: Qt.lighter(Material.foreground); radius: parent.height*0.05
-                    Image {
-                        id:buttonsGridIcon
-                        source:icon
-                        anchors {
-                            top: parent.top; topMargin: parent.height*0.1
-                            horizontalCenter: parent.horizontalCenter
-                        }
-                        sourceSize { height: parent.height*0.5; width: parent.width*0.5 }
-                        fillMode: Image.PreserveAspectFit
-                    }
-                    ColorOverlay {
-                        anchors.fill: buttonsGridIcon
-                        source: buttonsGridIcon
-                        color: colorDialog.color
-                    }
-
-                    Label {
-                        id:gridButtonLabel
-                        anchors{
-                            top:buttonsGridIcon.bottom
-                            horizontalCenter: buttonsGridIcon.horizontalCenter
-                        }
-                        text:name; color:Material.accent
-                        font.pointSize: 12
-                        Behavior on color {
-                            ColorAnimation { duration: 100 }
-                        }
-                    }
-                    MouseArea {
-                        anchors.fill: parent
-                        hoverEnabled: true
-                        onEntered: {
-                            gridButton.color = Qt.darker(Material.foreground)
-                            gridButtonLabel.color = Qt.lighter(Material.accent)
-                        }
-                        onExited: {
-                            gridButton.color = Qt.lighter(Material.foreground)
-                            gridButtonLabel.color = Material.accent
-                        }
-                        onClicked: {
-                            drawer.close()
-                            switch(name) {
-                            case "Circle":
-                                canvas.setCircle = true
-                                break
-                            case "Rectangle":
-                                canvas.setRectangle = true
-                                break
-                            case "Square":
-                                canvas.setSquare = true
-                                break
-                            case "Ellipse":
-                                canvas.setEllipse = true
-                                break
-                            }
-                        }
-
-                    }
-                    Behavior on color {
-                        ColorAnimation { duration: 200 }
-                    }
-                }
-            }
-        }
-    }
+    ItemDrawer { id: drawer }
 
     ColorDialog {
         id:colorDialog
