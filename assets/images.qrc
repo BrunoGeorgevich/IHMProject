@@ -8,6 +8,8 @@
         <file>drawio.png</file>
         <file>chat.png</file>
         <file>clock.png</file>
+        <file>back.png</file>
+        <file>send.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

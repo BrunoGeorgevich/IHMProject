@@ -7,5 +7,6 @@
         <file>ChatDrawer.qml</file>
         <file>ItemDrawer.qml</file>
         <file>RoundImageButton.qml</file>
+        <file>ChatPage.qml</file>
     </qresource>
 </RCC>

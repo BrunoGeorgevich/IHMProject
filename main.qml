@@ -6,8 +6,8 @@ import QtGraphicalEffects 1.0
 ApplicationWindow {
     id: root
     visible: true
-    width: 600
-    height: 800
+    width: 800
+    height: 1000
     title: qsTr("Hello World")
 
     PrimaryPage {
